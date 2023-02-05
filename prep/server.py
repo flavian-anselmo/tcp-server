@@ -3,7 +3,7 @@ import threading
 
 PORT = 5050
 IP_ADD =  socket.gethostbyname(socket.gethostname())
-N = 3 
+MAX_NO_CLIENTS = 3 
 FORMAT = 'utf-8'
 HEADER = 64
 DISCONNECT_MSG = 'd'
@@ -26,7 +26,7 @@ server.bind(addr)
 
 
 
-def handle_clients(conn, addr):
+def handle_clients(conn, addr, rank):
     '''
     - handle the cients :thread 
     - handle the inidvitual connection 
@@ -56,7 +56,7 @@ def handle_clients(conn, addr):
                 connected = False
             else:
                 conn.send(
-                    bytes(f'|<---->|WELCOME|<---->|', FORMAT)
+                    bytes(f'Welcome to the server your rank is {rank}', FORMAT)
                 )
                 print(f'[{addr}]: {msg}')
     #close the connection 
@@ -70,23 +70,43 @@ def start_server():
     '''
     #listen to a client 
     server.listen(
-        N
+        MAX_NO_CLIENTS
     )
 
     print(f'[LISTENING]--> server is listenng on {IP_ADD}')
-    
+
+    # clients connected 
+    CLIENTS_CONNECTED = []
     while True:
         # continnous connection 
         c_socket, addr = server.accept()
 
-        # create a thread
-        client_thread = threading.Thread(target = handle_clients, args = (c_socket, addr)) 
-        
-        #start the thread 
-        client_thread.start()
+        #set the client rank 
+        client_rank = len(CLIENTS_CONNECTED)
+        if client_rank == MAX_NO_CLIENTS:
+            '''
+            This means the server is full: -> no thread created 
 
-        #print the active threads in this python process 
-        print(f'[ACTIVE CONNECTIONS] {threading.active_count()-1}')
+            '''
+            c_socket.send('Server is full, try again later'.encode())
+        else:
+            '''
+            Update the connected users 
+
+            '''
+            # update the list of conected users 
+            CLIENTS_CONNECTED.append(c_socket)
+
+
+
+            # create a thread
+            client_thread = threading.Thread(target = handle_clients, args = (c_socket, addr, client_rank)) 
+            
+            #start the thread 
+            client_thread.start()
+
+            #print the active threads in this python process 
+            print(f'[ACTIVE CONNECTIONS] {threading.active_count()-1}')
 
 #START_THE_SERVER 
 start_server()

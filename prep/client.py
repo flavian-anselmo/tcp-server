@@ -40,7 +40,7 @@ def recieve_msg_from_server():
     r_msg = client.recv(HEADER).decode()
     return r_msg
 
-send(DISCONECT_MSG)
+send('hello!')
 
 r = recieve_msg_from_server()
 print(r)
