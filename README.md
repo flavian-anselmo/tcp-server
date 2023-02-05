@@ -8,3 +8,14 @@ Clients can send to the server commands that the server distributes among the cl
 
 If a client disconnects the server should re-adjust the ranks and promote any client that needs to be promoted not to leave any gaps in the ranks.
 
+## Thought Process 
+Break the main problem statement into sub-problems as shown below
+
+#### Sub Problem #1 
+
+1. The program should accept and hold a maximum of N-Clients 
+This means that we can only connect **N** clients in the server. If the server is full close the socket 
+
+2. Assign ranks based on first come first served basis 
+This means the first client to connect to the server will have the highest rank which is **0(zero)** and the last client to connect to the server will have the lowest rank **N**
+
