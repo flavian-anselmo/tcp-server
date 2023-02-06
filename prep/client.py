@@ -42,8 +42,8 @@ c_0.connect_to_server()
 
 c_0.send('hello')
 
-c_0.recieve_msg_from_server()
-
+rcv = c_0.recieve_msg_from_server()
+print(rcv)
 
 
 
