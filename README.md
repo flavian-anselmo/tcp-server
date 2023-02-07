@@ -37,6 +37,7 @@ Therefore the client with the highest rank will be stored at the index zero and 
 In this second sub problem #2, I was able to disect it into other 5 subproblems as listed below:
 
 **1. Allow Clients To Send Commands**
+
 Allow clients that are connected to send commands to the server. 
 
 **2. Distribute The Commands Amoung Clinets** 
@@ -52,6 +53,7 @@ For this one, since the server was now able to distribute these commands, I was 
 Any commands trying to reach clients with high rank were rejected by simply printing on console 'REJECTED COMMAND' 
 
 **5. Command Execution**
+
 For the command execution I was able to state from which client the command was coming from using the ranks since they can be used to identify the clients stored in the list. 
 
 
