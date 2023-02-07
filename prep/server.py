@@ -9,6 +9,9 @@ addr =  (
 print('socket created...')
 
 class Server:
+    # store the clients
+    CLIENTS_CONNECTED = []
+
     def __init__(self) -> None:
         pass
     def bind_server_port(self): 
@@ -17,7 +20,7 @@ class Server:
 
 
 
-    def handle_clients(self, conn, addr, rank):
+    def handle_clients(self, conn, addr, sender_rank):
         '''
         - handle the cients :thread 
         - handle the inidvitual connection 
@@ -34,7 +37,7 @@ class Server:
             # if the message is not null 
             if msg_len:
                 msg_len = int(msg_len)
-                print(msg_len)
+                # print(msg_len)
                 msg = conn.recv(msg_len).decode(FORMAT)
                 print(msg)
 
@@ -45,13 +48,30 @@ class Server:
                         bytes(f'diconnected client {addr}', FORMAT)
                     )
                     connected = False
+                    
                 else:
                     conn.send(
-                        bytes(f'Welcome to the server your rank is {rank}', FORMAT)
+                        bytes(f'Welcome to the server your rank is {sender_rank}', FORMAT)
                     )
                     print(f'[{addr}]: {msg}')
+                    # recieve the target rank here 
+                    reciver_rank = conn.recv(HEADER).decode(FORMAT)
+                    self.distribute_commnads_to_clients(reciver_rank, sender_rank)
+
         #close the connection 
         conn.close()
+
+
+
+    def distribute_commnads_to_clients(self, reciver_rank, sender_rank):
+        '''
+        distribute messages amoung clients 
+
+        '''
+        
+        print(f'cmd exe...>>> sender: {sender_rank} :--> target: {reciver_rank}')
+
+
 
     def start_server(self):
         '''
@@ -67,26 +87,26 @@ class Server:
         print(f'[LISTENING]--> server is listenng on {IP_ADD}')
 
         # clients connected 
-        CLIENTS_CONNECTED = []
         while True:
             # continnous connection 
             c_socket, addr = server.accept()
 
             #set the client rank 
-            client_rank = len(CLIENTS_CONNECTED)
+            client_rank = len(self.CLIENTS_CONNECTED)
             if client_rank == MAX_NO_CLIENTS:
                 '''
-                This means the server is full: -> no thread created 
+                - This means the server is full: -> no thread created 
 
                 '''
                 c_socket.send('Server is full, try again later'.encode())
+                
             else:
                 '''
                 Update the connected users 
 
                 '''
                 # update the list of conected users 
-                CLIENTS_CONNECTED.append(c_socket)
+                self.CLIENTS_CONNECTED.append(c_socket)
 
 
 
@@ -98,6 +118,7 @@ class Server:
 
                 #print the active threads in this python process 
                 print(f'[ACTIVE CONNECTIONS] {threading.active_count()-1}')
+                print(self.CLIENTS_CONNECTED)
 
 #START_THE_SERVER 
 sv = Server()
