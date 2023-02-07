@@ -51,12 +51,19 @@ class Server:
                     
                 else:
                     conn.send(
-                        bytes(f'Welcome to the server your rank is {sender_rank}', FORMAT)
+                        bytes(f'Welcome to the server your rank is {sender_rank }   ', FORMAT)
                     )
+                    #send cmd 
+
                     print(f'[{addr}]: {msg}')
                     # recieve the target rank here 
                     reciver_rank = conn.recv(HEADER).decode(FORMAT)
-                    self.distribute_commnads_to_clients(reciver_rank, sender_rank)
+                    # self.distribute_commnads_to_clients(reciver_rank, sender_rank)
+
+                    #send to target client 
+                    self.send_to_target_client(reciver_rank, sender_rank)
+
+
 
         #close the connection 
         conn.close()
@@ -70,6 +77,26 @@ class Server:
         '''
         
         print(f'cmd exe...>>> sender: {sender_rank} :--> target: {reciver_rank}')
+
+    def send_to_target_client(self, target, sender):
+        '''
+        send the message to target client 
+
+        '''
+        client_socket = self.CLIENTS_CONNECTED[int(target)]
+
+        if int(sender) > int(target):
+            # sender has a lower rank 
+
+
+            client_socket.send(
+                bytes(f'hey 😍 target_rank {target} from sender_rank:{sender}',FORMAT)
+            )
+        else:
+            # reject the command 
+            print('REJECTED COMMAND')
+
+
 
 
 

@@ -15,7 +15,8 @@ class Client:
         send a message to the server 
 
         '''
-        while True:
+        connected = True
+        while connected:
             #encode the message 
             message = msg.encode(FORMAT)
             msg_len = len(message)
@@ -39,8 +40,12 @@ class Client:
             rank = reciver_rank.encode(FORMAT)
 
             client.send(rank)
-            
-            
+            connected = False
+            while connected == False:
+                print('waiting for msg...')
+                rcv = self.recieve_msg_from_server()
+                print(rcv)
+                
             
 
     def recieve_msg_from_server(self):
