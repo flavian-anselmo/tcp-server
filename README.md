@@ -48,6 +48,7 @@ For this one I first enabled all the clients to be able to communicate since tha
 For this one, since the server was now able to distribute these commands, I was now able to enable Clients with a lower rank  execute commands from  higher ranked clients. 
 
 **4. Higher Rank** 
+
 Any commands trying to reach clients with high rank were rejected by simply printing on console 'REJECTED COMMAND' 
 
 **5. Command Execution**
