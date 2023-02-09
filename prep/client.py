@@ -10,7 +10,7 @@ class Client:
         client.connect((IP_ADD_CLIENT, PORT))
 
 
-    def send(self, msg, reciver_rank):
+    def send(self, msg):
         '''
         send a message to the server 
 
@@ -70,7 +70,7 @@ c_0.connect_to_server()
 
 
 #send 
-c_0.send('Hello Server!', 0)
+c_0.send('Hello Server!')
 
 
 
