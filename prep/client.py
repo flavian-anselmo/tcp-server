@@ -1,4 +1,5 @@
-from config import FORMAT, IP_ADD_CLIENT, PORT, HEADER, client
+from config import FORMAT, IP_ADD_CLIENT, PORT, HEADER, client, DISCONNECT_MSG
+import time
 
 
 class Client:
@@ -35,16 +36,20 @@ class Client:
 
             '''
             reciver_rank = input('Enter target-rank: ')
-            # send it to the server
 
+            if reciver_rank == DISCONNECT_MSG:
+                break
+
+          
             rank = reciver_rank.encode(FORMAT)
-
             client.send(rank)
             connected = False
-            while connected == False:
+            if connected == False:
                 print('waiting for msg...')
+                time.sleep(5)
                 rcv = self.recieve_msg_from_server()
                 print(rcv)
+            connected = True
                 
             
 
@@ -58,6 +63,11 @@ class Client:
         r_msg = client.recv(HEADER).decode()
         return r_msg
 
+
+ 
+
+
+    
 # client instance 
 c_0 = Client()
 
@@ -70,7 +80,9 @@ c_0.connect_to_server()
 
 
 #send 
-c_0.send('Hello Server!')
+
+message_intro = input('Say hello to Server: ')
+c_0.send(message_intro)
 
 
 

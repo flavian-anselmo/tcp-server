@@ -10,7 +10,8 @@ print('socket created...')
 
 class Server:
     # store the clients
-    CLIENTS_CONNECTED = []
+    CLIENTS_CONNECTED = {}
+    MESSAGES = []
 
     def __init__(self) -> None:
         pass
@@ -47,11 +48,13 @@ class Server:
                     conn.send(
                         bytes(f'diconnected client {addr}', FORMAT)
                     )
-                    connected = False
+                    self.CLIENTS_CONNECTED.pop(sender_rank)      
+
+                    print(self)              
                     
                 else:
                     conn.send(
-                        bytes(f'Welcome to the server your rank is {sender_rank }   ', FORMAT)
+                        bytes(f'Welcome your rank is {sender_rank }  ', FORMAT)
                     )
                     #send cmd 
 
@@ -59,6 +62,9 @@ class Server:
                     # recieve the target rank here 
                     reciver_rank = conn.recv(HEADER).decode(FORMAT)
                     # self.distribute_commnads_to_clients(reciver_rank, sender_rank)
+
+                    
+                        
 
                     #send to target client 
                     self.send_to_target_client(reciver_rank, sender_rank)
@@ -90,10 +96,11 @@ class Server:
 
 
             client_socket.send(
-                bytes(f'hey 😍 target_rank {target} from sender_rank:{sender}',FORMAT)
+                bytes(f'hey 😂 TARGET_RANK: {target} from SENDER_RANK: {sender} 🚀',FORMAT)
             )
+            
         else:
-            # reject the command 
+            # reject the command -> printed on the server 
             print('REJECTED COMMAND')
 
 
@@ -144,7 +151,7 @@ class Server:
                 client_thread.start()
 
                 #print the active threads in this python process 
-                print(f'[ACTIVE CONNECTIONS] {threading.active_count()-1}')
+                print(f'[ACTIVE CONNECTIONS MADE] {threading.active_count()-1}')
                 print(self.CLIENTS_CONNECTED)
 
 #START_THE_SERVER 
