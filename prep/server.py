@@ -10,7 +10,7 @@ print('socket created...')
 
 class Server:
     # store the clients
-    CLIENTS_CONNECTED = {}
+    CLIENTS_CONNECTED = []
     MESSAGES = []
 
     def __init__(self) -> None:
@@ -48,9 +48,31 @@ class Server:
                     conn.send(
                         bytes(f'diconnected client {addr}', FORMAT)
                     )
-                    self.CLIENTS_CONNECTED.pop(sender_rank)      
 
-                    print(self)              
+                    c_socket = self.CLIENTS_CONNECTED[int(sender_rank)]
+
+
+                    promote_rank = sender_rank
+                    self.CLIENTS_CONNECTED.pop(sender_rank) 
+
+                    # disconnnect the client from the socket 
+
+                    
+                    # close the socket 
+                    c_socket.close()
+                    
+
+                    # the current number of clients 
+                    print(self.CLIENTS_CONNECTED)
+
+
+                    # since indices are the ranks, 
+                    conn.send(
+                        bytes(f'Hey your new rank is {promote_rank}',FORMAT)
+                    )
+
+
+
                     
                 else:
                     conn.send(
@@ -62,12 +84,25 @@ class Server:
                     # recieve the target rank here 
                     reciver_rank = conn.recv(HEADER).decode(FORMAT)
                     # self.distribute_commnads_to_clients(reciver_rank, sender_rank)
+                    if reciver_rank == DISCONNECT_MSG:
+                        # disconnect 
+                        self.CLIENTS_CONNECTED.pop(sender_rank)  
+                        #disconnnect the client from the socket 
 
+                        c_socket = self.CLIENTS_CONNECTED[int(sender_rank)]
                     
-                        
-
+                        #close the socket 
+                        c_socket.close()
+                        print(f'DISCONNECTED RANK {sender_rank}')
+                    
+                    
                     #send to target client 
-                    self.send_to_target_client(reciver_rank, sender_rank)
+                    self.send_to_target_client(reciver_rank, sender_rank) 
+
+                    print(f'[{addr}]: {msg}')
+                    # recieve the target rank here 
+                    reciver_rank = conn.recv(HEADER).decode(FORMAT)
+                    # self.distribute_commnads_to_clients(reciver_rank, sender_rank)
 
 
 
