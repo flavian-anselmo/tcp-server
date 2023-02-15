@@ -83,19 +83,7 @@ class Server:
                     print(f'[{addr}]: {msg}')
                     # recieve the target rank here 
                     reciver_rank = conn.recv(HEADER).decode(FORMAT)
-                    # self.distribute_commnads_to_clients(reciver_rank, sender_rank)
-                    if reciver_rank == DISCONNECT_MSG:
-                        # disconnect 
-                        self.CLIENTS_CONNECTED.pop(sender_rank)  
-                        #disconnnect the client from the socket 
-
-                        c_socket = self.CLIENTS_CONNECTED[int(sender_rank)]
-                    
-                        #close the socket 
-                        c_socket.close()
-                        print(f'DISCONNECTED RANK {sender_rank}')
-                    
-                    
+                
                     #send to target client 
                     self.send_to_target_client(reciver_rank, sender_rank) 
 

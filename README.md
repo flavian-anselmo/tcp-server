@@ -58,4 +58,6 @@ For the command execution I was able to state from which client the command was 
 
 
 
-## Sub Problem #3 ✅
+## Sub Problem #3 (Rank Promotion) ✅ 
+
+In the solution to the problem where a list data structure is used, clients are assigned ranks based on their index positions in the list. The promotion of clients is automatically handled when a client is disconnected, as the highest rank starts from 0 and the lowest rank is N. Therefore, if a client at index 0 is disconnected, the client at index 1 takes its place, effectively promoting the client to a higher rank.
