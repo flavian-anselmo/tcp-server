@@ -88,6 +88,6 @@ python3 server.py
 ```bash
 python3 client.py 
 ```
-
+## Resources Used 
 To see my thought process and resources I used to solve this problem, kindly click [Here](https://dent-coyote-f08.notion.site/pesapal-developer-challenge-TCP-3-6c0ac8248d92419eb91f1d1c3a6952e0)
 
