@@ -45,7 +45,7 @@ class Server:
                 if msg == DISCONNECT_MSG:
                     # close the current connection 
                     conn.send(
-                        bytes(f'diconnected client {addr}', FORMAT)
+                        bytes(f'disconnected client {addr}', FORMAT)
                     )
 
                     c_socket = self.CLIENTS_CONNECTED[int(sender_rank)]
@@ -98,13 +98,7 @@ class Server:
 
 
 
-    def distribute_commnads_to_clients(self, reciver_rank, sender_rank):
-        '''
-        distribute messages amoung clients 
-
-        '''
-        
-        print(f'cmd exe...>>> sender: {sender_rank} :--> target: {reciver_rank}')
+ 
 
     def send_to_target_client(self, target, sender):
         '''

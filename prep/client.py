@@ -46,7 +46,6 @@ class Client:
             connected = False
             if connected == False:
                 print('waiting for msg...')
-                time.sleep(5)
                 rcv = self.recieve_msg_from_server()
                 print(rcv)
             connected = True
@@ -81,7 +80,7 @@ c_0.connect_to_server()
 
 #send 
 
-message_intro = input('Say hello to Server: ')
+message_intro = input('Say hello to Server-> type d to disconnect: ')
 c_0.send(message_intro)
 
 

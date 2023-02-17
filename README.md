@@ -65,13 +65,15 @@ In the solution to the problem where a list data structure is used, clients are 
 
 
 ## Demo 📺️
-...demo here 
+Find the **demo** [Here](https://youtu.be/S2bUJ_7yvD4) 
 
-## Areas I need to improve on 
+## Areas I need to improve on 📈
 1. Commandline interraction with the application
+2. Bugs fixes
+3. Code refactor 
 
 
-## How To Install and Run 
+## How To Install and Run 🏃
 
 For this task I  used python 3.10.6. Below is how to install and run:
 
@@ -88,6 +90,6 @@ python3 server.py
 ```bash
 python3 client.py 
 ```
-## Resources Used 
+## Resources Used 💪
 To see my thought process and resources I used to solve this problem, kindly click [Here](https://dent-coyote-f08.notion.site/pesapal-developer-challenge-TCP-3-6c0ac8248d92419eb91f1d1c3a6952e0)
 
