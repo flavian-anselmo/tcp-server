@@ -11,7 +11,6 @@ print('socket created...')
 class Server:
     # store the clients
     CLIENTS_CONNECTED = []
-    MESSAGES = []
 
     def __init__(self) -> None:
         pass

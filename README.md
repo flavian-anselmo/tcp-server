@@ -9,6 +9,7 @@ Clients can send to the server commands that the server distributes among the cl
 If a client disconnects the server should re-adjust the ranks and promote any client that needs to be promoted not to leave any gaps in the ranks.
 
 ## Thought Process 🤹
+
 I was able to identify 3 sub problems in the problem statement as shown below. I did this to be able to understand the problem more and also solve the problem a sub problem at a time. This will also help the person viewing the problem to see my commits and at every subproblem solved. 
 
 - Build a TCP server that can accept and hold a **maximum of N clients** (where N is **configurable**) These clients are assigned ranks based on **first-come-first-serve**, i.e whoever connects first receives the next available high rank. Ranks are from 0–N, 0 being the highest rank.
@@ -17,7 +18,7 @@ I was able to identify 3 sub problems in the problem statement as shown below. I
 - Clients can **send to the server commands** that the server **distributes among the clients**. Only a client with a **lower rank can execute a command** of a higher rank client. **Higher rank clients cannot execute commands** by lower rank clients, so these commands are rejected. The command execution can be as simple as the client printing to console that command has been executed.
 
 - If a client disconnects the server should **re-adjust the ranks and promote any client** that needs to be promoted **not to leave any gaps in the ranks**.
-
+Click here to see how I was able to solve the problem  and how I organied my tasks in this problem statement 
 
 
 ## Sub Problem #1 ✅
@@ -61,3 +62,32 @@ For the command execution I was able to state from which client the command was 
 ## Sub Problem #3 (Rank Promotion) ✅ 
 
 In the solution to the problem where a list data structure is used, clients are assigned ranks based on their index positions in the list. The promotion of clients is automatically handled when a client is disconnected, as the highest rank starts from 0 and the lowest rank is N. Therefore, if a client at index 0 is disconnected, the client at index 1 takes its place, effectively promoting the client to a higher rank.
+
+
+## Demo 📺️
+...demo here 
+
+## Areas I need to improve on 
+1. Commandline interraction with the application
+
+
+## How To Install and Run 
+
+For this task I  used python 3.10.6. Below is how to install and run:
+
+Clone the repository 
+
+```bash
+git clone https://github.com/flavian-anselmo/tcp-server.git
+```
+Open your terminal and **cd** into the tcp-server/tcp/ directories and run the respective files
+
+```bash 
+python3 server.py
+```
+```bash
+python3 client.py 
+```
+
+To see my thought process and resources I used to solve this problem, kindly click [Here](https://dent-coyote-f08.notion.site/pesapal-developer-challenge-TCP-3-6c0ac8248d92419eb91f1d1c3a6952e0)
+
